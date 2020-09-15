@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  frontend_dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: DEV-frontend    
+    ports: 
+      - "4202:4200"
+    volumes: 
+      #- ./frontend:/app
+      - type: bind
+        source: ./frontend
+        target: /usr/src/frontend
+      - type: volume
+        source: dev_login_ufro_app_vol
+        target: /usr/src/frontend/node_modules
+    networks: 
+      - dev_login_ufro_app_net
+
+  mongo_db:
+    image: mvertes/alpine-mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+  
+
+  backend_dev:
+    build:
+      context: Backend
+      dockerfile: dev.dockerfile
+    working_dir: /usr/src/backend
+    volumes:
+      - type: bind
+        source: ./Backend
+        target: /usr/src/backend
+    ports:
+      - '8080:8080'
+      - '35729:35729'
+    expose:
+      - '8080'
+      - '35729'
+    command: mvn spring-boot:run
+    links:
+      - mongo_db:mongo
+
+networks: 
+  dev_login_ufro_app_net:
+volumes:
+  dev_login_ufro_app_vol:
