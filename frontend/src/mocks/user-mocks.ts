@@ -14,7 +14,7 @@ export const UserMocks: User[] = [
   },
   {
     id: 3,
-    name: 'Fabian Marique',
+    name: 'Fabian Mariqueo',
     email: 'f.mariqueo01@ufromail.cl',
     password: 'adminadmin'
   },
