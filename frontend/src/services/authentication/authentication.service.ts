@@ -3,6 +3,7 @@ import {User} from '../../models/user';
 import {UserMocks} from '../../mocks/user-mocks';
 import {LocalStorageService} from 'ngx-webstorage';
 import {Observable, of, throwError} from 'rxjs';
+import {delay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class AuthenticationService {
     if (user != null){
       this.authenticatedUser = user;
       this.localStorage.store('authenticatedUser', user);
-      return of(user);
+      return of(user).pipe(delay(3000));
     } else {
-      return null;
+      return throwError('Usuario o contraseña inválidos');
     }
   }
   isLoggedIn(): boolean {
