@@ -14,19 +14,22 @@ services:
         source: ./frontend
         target: /usr/src/frontend
       - type: volume
-        source: dev_login_ufro_app_vol
+        source: dev_login_ufro_vol
         target: /usr/src/frontend/node_modules
     networks: 
-      - dev_login_ufro_app_net
+      - dev_login_ufro_net
 
-  mongo_db:
+  mongodb_dev:
     image: mvertes/alpine-mongo
     restart: unless-stopped
+    hostname: 'mongodb'
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+    networks: 
+      - dev_login_ufro_net
   
 
   backend_dev:
@@ -44,11 +47,11 @@ services:
     expose:
       - '8080'
       - '35729'
-    command: mvn spring-boot:run
-    links:
-      - mongo_db:mongo
+    command: mvn spring-boot:run    
+    networks: 
+      - dev_login_ufro_net
 
 networks: 
-  dev_login_ufro_app_net:
+  dev_login_ufro_net:
 volumes:
-  dev_login_ufro_app_vol:
+  dev_login_ufro_vol:
