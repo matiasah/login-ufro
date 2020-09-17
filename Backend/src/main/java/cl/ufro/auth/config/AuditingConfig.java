@@ -12,7 +12,7 @@ import cl.ufro.auth.model.Usuario;
 import cl.ufro.auth.service.AuditorAwareImpl;
 
 @Configuration
-@EnableMongoAuditing
+@EnableMongoAuditing(dateTimeProviderRef = "dateTimeProvider")
 public class AuditingConfig {
 
     @Bean
