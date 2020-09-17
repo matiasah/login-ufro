@@ -32,7 +32,7 @@ public class OAuth2Client implements ClientDetails {
     private static final Set<String> GRANT_TYPES = Set.of("password", "refresh_token");
 
     @Id
-    private Long id;
+    private String id;
 
     private String clientId;
     private String clientSecret;
