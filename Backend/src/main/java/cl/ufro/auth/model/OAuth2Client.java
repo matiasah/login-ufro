@@ -1,12 +1,15 @@
 package cl.ufro.auth.model;
 
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -33,6 +36,12 @@ public class OAuth2Client implements ClientDetails {
 
     private String clientId;
     private String clientSecret;
+
+    @CreatedDate
+    private ZonedDateTime createdAt;
+    
+    @LastModifiedDate
+    private ZonedDateTime updatedAt;
 
     @Override
     public String getClientId() {

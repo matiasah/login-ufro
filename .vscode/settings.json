@@ -1,3 +1,24 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "[java]": {
+        "editor.defaultFormatter": "vscjava.vscode-java-pack"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.search-result"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.tslint": true,
+        "source.organizeImports": true
+    },
+    "html.format.wrapLineLength": 0
 }
