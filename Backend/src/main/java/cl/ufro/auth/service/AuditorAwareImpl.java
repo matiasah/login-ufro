@@ -21,7 +21,13 @@ public class AuditorAwareImpl implements AuditorAware<Usuario> {
             return Optional.empty();
         }
 
-        return Optional.of((Usuario) authentication.getPrincipal());
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof Usuario) {
+            return Optional.of((Usuario) principal);
+        }
+
+        return Optional.ofNullable(null);
     }
     
 }
