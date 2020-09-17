@@ -31,7 +31,6 @@ services:
     networks: 
       - dev_login_ufro_net
   
-
   backend_dev:
     build:
       context: Backend
