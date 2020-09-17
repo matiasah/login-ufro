@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
   frontend_dev:
@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: DEV-frontend    
     ports: 
-      - "4202:4200"
+      - "4200:4200"
     volumes: 
       #- ./frontend:/app
       - type: bind
@@ -40,6 +40,9 @@ services:
       - type: bind
         source: ./Backend
         target: /usr/src/backend
+      - type: volume
+        source: dev_login_ufro_vol
+        target: /usr/src/backend/.mvn
     ports:
       - "8080:8080"
       - "35729:35729"
