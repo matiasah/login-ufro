@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
     hostname: 'mongodb'
     ports:
-      - 27017:27017
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -41,8 +41,8 @@ services:
         source: ./Backend
         target: /usr/src/backend
     ports:
-      - '8080:8080'
-      - '35729:35729'
+      - "8080:8080"
+      - "35729:35729"
     expose:
       - '8080'
       - '35729'
