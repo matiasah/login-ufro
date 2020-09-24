@@ -29,13 +29,15 @@ public class OAuth2Client implements ClientDetails {
      *
      */
     private static final long serialVersionUID = 1L;
-    private static final Set<String> GRANT_TYPES = Set.of("password", "refresh_token");
+    private static final Set<String> GRANT_TYPES = Set.of("password", "authorization_code", "refresh_token");
 
     @Id
     private String id;
 
     private String clientId;
     private String clientSecret;
+
+    private Set<String> registeredRedirectUri = new HashSet<>();
 
     @CreatedDate
     private ZonedDateTime createdAt;
@@ -76,11 +78,6 @@ public class OAuth2Client implements ClientDetails {
     @Override
     public Set<String> getAuthorizedGrantTypes() {
         return GRANT_TYPES;
-    }
-
-    @Override
-    public Set<String> getRegisteredRedirectUri() {
-        return new HashSet<>();
     }
 
     @Override
