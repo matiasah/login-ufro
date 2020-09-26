@@ -2,7 +2,7 @@
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
     "[java]": {
-        "editor.defaultFormatter": "vscjava.vscode-java-pack"
+        "editor.defaultFormatter": "redhat.java"
     },
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"

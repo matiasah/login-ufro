@@ -1,10 +1,8 @@
-FROM maven:3.6.1-amazoncorretto-11
+# Debian 10
+FROM debian:10
 
-# Ubicarse en la carpeta del backend
-WORKDIR /usr/src/backend
+# Corretto 11
+COPY --from=amazoncorretto:11 / /
 
-# Copiar todos los archivos del backend al contenedor
-COPY pom.xml /usr/src/backend/pom.xml
-
-# Cargar las dependencias del backend
-RUN mvn dependency:resolve
+# Maven
+COPY --from=maven:3.6.3 / /

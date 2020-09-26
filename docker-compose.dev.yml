@@ -34,21 +34,18 @@ services:
     build:
       context: Backend
       dockerfile: dev.dockerfile
+    restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
-      - type: bind
-        source: ./Backend
-        target: /usr/src/backend
-      - type: volume
-        source: dev_login_ufro_vol
-        target: /usr/src/backend/.mvn
+      - ~/.m2:/root/.m2
+      - ./Backend/:/usr/src/backend
     ports:
       - "8080:8080"
       - "35729:35729"
     expose:
       - '8080'
       - '35729'
-    command: mvn spring-boot:run    
+    command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
     networks: 
       - dev_login_ufro_net
   
