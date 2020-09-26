@@ -4,8 +4,7 @@ services:
   frontend_dev:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
-    container_name: DEV-frontend    
+      dockerfile: dev.dockerfile
     ports: 
       - "4200:4200"
     volumes: 
