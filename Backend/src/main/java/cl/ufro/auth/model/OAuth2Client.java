@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -34,6 +35,9 @@ public class OAuth2Client implements ClientDetails {
     @Id
     private String id;
 
+    private String nombre;
+
+    @Indexed
     private String clientId;
     private String clientSecret;
 

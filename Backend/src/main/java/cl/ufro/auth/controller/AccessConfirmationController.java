@@ -1,12 +1,16 @@
 package cl.ufro.auth.controller;
 
+import java.security.Principal;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,18 +30,24 @@ public class AccessConfirmationController {
     private ClientDetailsService clientDetailsService;
 
     @RequestMapping("/oauth/confirm_access")
-    public ModelAndView getAccessConfirmation(@ModelAttribute AuthorizationRequest clientAuth) throws Exception {
+    public ModelAndView getAccessConfirmation() throws Exception {
+        return new ModelAndView("index");
+    }
+
+    @GetMapping("/oauth/confirm_access/client")
+    public ResponseEntity<Object> getClientDetails(@AuthenticationPrincipal Principal principal, @ModelAttribute AuthorizationRequest clientAuth) throws Exception {
         // Buscar cliente
         ClientDetails client = clientDetailsService.loadClientByClientId(clientAuth.getClientId());
 
         // Atributos de la vista
         TreeMap<String, Object> model = new TreeMap<String, Object>();
 
-        model.put("auth_request", clientAuth);
+        model.put("principal", principal);
+        model.put("authRequest", clientAuth);
         model.put("client", client);
 
-        // Vista a mostrar
-        return new ModelAndView("access_confirmation", model);
+        // Respuesta
+        return ResponseEntity.ok(model);
     }
 
 }

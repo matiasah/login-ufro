@@ -1,23 +1,16 @@
 package cl.ufro.auth.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
 
     // Login form
     @RequestMapping("/login")
-    public String login() {
-        return "login.html";
-    }
-
-    // Login form with error
-    @RequestMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login.html";
+    public ModelAndView login() {
+        return new ModelAndView("index");
     }
 
 }
