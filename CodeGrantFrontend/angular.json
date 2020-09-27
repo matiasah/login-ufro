@@ -21,7 +21,7 @@
                             "path": "./webpack.config.js"
                         },
                         "outputPath": "dist/CodeGrantFrontend",
-                        "index": "src/index.html",
+                        "index": "src/oauth2.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",

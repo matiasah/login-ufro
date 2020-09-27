@@ -31,7 +31,7 @@ public class AccessConfirmationController {
 
     @RequestMapping("/oauth/confirm_access")
     public ModelAndView getAccessConfirmation() throws Exception {
-        return new ModelAndView("index");
+        return new ModelAndView("oauth2");
     }
 
     @GetMapping("/oauth/confirm_access/client")

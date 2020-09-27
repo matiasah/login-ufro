@@ -9,6 +9,11 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'oauth/authorize',
+        redirectTo: 'oauth/confirm_access',
+        pathMatch: 'full'
+    },
+    {
         path: 'oauth/confirm_access',
         component: AuthorizeComponent
     }

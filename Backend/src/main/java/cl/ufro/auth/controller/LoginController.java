@@ -10,7 +10,7 @@ public class LoginController {
     // Login form
     @RequestMapping("/login")
     public ModelAndView login() {
-        return new ModelAndView("index");
+        return new ModelAndView("oauth2");
     }
 
 }
