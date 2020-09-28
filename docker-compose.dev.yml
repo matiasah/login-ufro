@@ -1,8 +1,7 @@
-version: '3.4'
+version: '3.2'
 
 services:
   frontend_dev:
-    image: node:lts-alpine
     build:
       context: ./frontend
       dockerfile: dev.dockerfile
@@ -31,16 +30,9 @@ services:
       - dev_login_ufro_net
   
   backend_dev:
-    image: debian:10.5
     build:
       context: Backend
       dockerfile: dev.dockerfile
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-        delay: 10s
-        order: start-first
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
