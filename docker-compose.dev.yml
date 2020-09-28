@@ -33,6 +33,12 @@ services:
     build:
       context: Backend
       dockerfile: dev.dockerfile
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
