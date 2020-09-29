@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     hostname: 'mongodb'
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -39,11 +39,8 @@ services:
       - ~/.m2:/root/.m2
       - ./Backend/:/usr/src/backend
     ports:
-      - "8080:8080"
-      - "35729:35729"
-    expose:
-      - '8080'
-      - '35729'
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:35729:35729"
     depends_on:
       - mongodb_dev
     command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
