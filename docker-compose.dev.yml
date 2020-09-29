@@ -36,7 +36,6 @@ services:
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
-      - ~/.m2:/root/.m2
       - ./Backend/:/usr/src/backend
     ports:
       - "127.0.0.1:8080:8080"
