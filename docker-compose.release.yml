@@ -35,8 +35,6 @@ services:
       dockerfile: dev.dockerfile
     restart: unless-stopped
     working_dir: /usr/src/backend
-    volumes:
-      - ./Backend/:/usr/src/backend
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:35729:35729"
