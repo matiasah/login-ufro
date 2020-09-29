@@ -1,0 +1,58 @@
+<div class="mt-5 container">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5 class="mt-2">Usuarios</h5>
+        <a class="btn btn-success" routerLink="users/store">
+          Nuevo
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <table *ngIf="users != null" class="table table-borderless table-striped">
+        <tr>
+          <th>Id</th>
+          <th>Email</th>
+          <th>Creado el</th>
+          <th>Roles</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td>
+            {{user.id}}
+          </td>
+          <td>
+            {{user.username}}
+          </td>
+          <td>
+            {{user.createdAt | date}}
+          </td>
+          <td>
+            <span *ngFor="let authority of user.authorities">
+              <span class="badge badge-pill badge-primary">{{authority.replace('ROLE_', '') | titlecase}}</span>
+            </span>
+          </td>
+          <td>
+            <span *ngIf="user.enabled; else inactive" class="badge badge-pill badge-success">
+              Active
+            </span>
+            <ng-template #inactive>
+              <span class="badge badge-pill badge-danger">
+                Inactive
+              </span>
+            </ng-template>
+          </td>
+          <td>
+            <a type="button" class="btn btn-success btn-sm mr-2" routerLink="users/update/{{user.id}}">
+                Editar
+            </a>
+            <button type="button" class="btn btn-danger btn-sm" (click)="delete(user.id)">
+                Eliminar
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

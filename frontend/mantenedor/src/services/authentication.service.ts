@@ -5,7 +5,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserMocks } from 'src/mocks/user-mocks';
-import { User } from '../../models/user';
+import { User } from '../models/user';
+import {UserRole} from '../models/user-role.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthenticationService {
     constructor(private localStorage: LocalStorageService, private http: HttpClient) { }
 
     login(email: string, password: string): Observable<User> {
-        const user = UserMocks.find(u => u.email === email && u.password === password);
+        const user = UserMocks.find(u => u.username === email && u.password === password);
         if (user != null) {
             this.authenticatedUser = user;
             this.localStorage.store('authenticatedUser', user);
@@ -24,7 +25,7 @@ export class AuthenticationService {
             return throwError('Usuario o contraseña inválidos');
         }
 
-        // Formulario con datos de usuario        
+        // Formulario con datos de usuario
     }
 
     loginOauth(email: string, password: string): Observable<User> {
@@ -40,6 +41,9 @@ export class AuthenticationService {
     isLoggedIn(): boolean {
         this.getUserInstance();
         return this.authenticatedUser != null;
+    }
+    isAdmin(): boolean {
+      return this.isLoggedIn() && this.authenticatedUser.authorities.indexOf(UserRole.ROLE_ADMIN) !== -1;
     }
     getLoggedUser(): User {
         if (this.isLoggedIn()) {
