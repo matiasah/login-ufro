@@ -1,0 +1,95 @@
+version: '3.4'
+
+services:
+  frontend_dev:
+    image: node:lts-alpine
+    build:
+      context: ./frontend
+      dockerfile: dev.dockerfile
+    ports: 
+      - "4200:4200"
+    volumes: 
+      - type: bind
+        source: ./frontend
+        target: /usr/src/frontend
+      - type: volume
+        source: dev_login_ufro_vol
+        target: /usr/src/frontend/node_modules
+    networks: 
+      - dev_login_ufro_net
+
+  mongodb_dev:
+    image: mvertes/alpine-mongo
+    restart: unless-stopped
+    hostname: 'mongodb'
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks: 
+      - dev_login_ufro_net
+  
+  backend_dev:
+    image: debian:10.5
+    build:
+      context: Backend
+      dockerfile: dev.dockerfile
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+    restart: unless-stopped
+    working_dir: /usr/src/backend
+    volumes:
+      - ./Backend/:/usr/src/backend
+    ports:
+      - "8080:8080"
+      - "35729:35729"
+    expose:
+      - '8080'
+      - '35729'
+    depends_on:
+      - mongodb_dev
+    command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
+    networks: 
+      - dev_login_ufro_net
+  
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.3-debian-10
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_moodle
+      - MARIADB_DATABASE=bitnami_moodle
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb'
+  
+  moodle:
+    image: docker.io/bitnami/moodle:3-debian-10
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - MOODLE_DATABASE_HOST=mariadb
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER=bn_moodle
+      - MOODLE_DATABASE_NAME=bitnami_moodle
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'moodle_data:/bitnami/moodle'
+      - 'moodledata_data:/bitnami/moodledata'
+    depends_on:
+      - mariadb
+
+networks: 
+  dev_login_ufro_net:
+volumes:
+  dev_login_ufro_vol:
+  mariadb_data:
+    driver: local
+  moodle_data:
+    driver: local
+  moodledata_data:
+    driver: local
