@@ -5,6 +5,7 @@ FROM debian:10.5
 COPY --from=maven:3.6.3-amazoncorretto-11 / /
 
 # Copiar todos los archivos del backend al contenedor
+WORKDIR /usr/src/backend
 COPY pom.xml /usr/src/backend/pom.xml
 
 # Cargar las dependencias del backend
