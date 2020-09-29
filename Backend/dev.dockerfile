@@ -4,13 +4,6 @@ FROM debian:10.5
 # Maven 3.6.3 + Corretto 11
 COPY --from=maven:3.6.3-amazoncorretto-11 / /
 
-# Copiar todos los archivos del backend al contenedor
-WORKDIR /usr/src/backend
-COPY pom.xml /usr/src/backend/pom.xml
-
-# Cargar las dependencias del backend
-RUN mvn dependency:resolve 
-
 # Healthcheck
 HEALTHCHECK --interval=30s --retries=6 --start-period=1m --timeout=30s CMD curl --silent --fail --request GET http://localhost:8080/actuator/health || exit 1
 
