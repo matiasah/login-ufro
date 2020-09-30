@@ -32,7 +32,7 @@ services:
   backend_prod:
     build:
       context: Backend
-      dockerfile: dev.dockerfile
+      dockerfile: prod.dockerfile
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
@@ -44,7 +44,7 @@ services:
       - "127.0.0.1:35729:35729"
     depends_on:
       - mongodb_dev
-    command: mvn spring-boot:run
+    command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
     networks:
       - prod_login_ufro_net
 
