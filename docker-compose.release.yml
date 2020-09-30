@@ -1,48 +1,53 @@
-version: '3.2'
+version: "3.4"
 
 services:
-  frontend_dev:
+  frontend_prod:
     build:
       context: ./frontend
       dockerfile: dev.dockerfile
-    ports: 
+    ports:
       - "4200:4200"
-    volumes: 
+    volumes:
       - type: bind
         source: ./frontend
         target: /usr/src/frontend
       - type: volume
-        source: dev_login_ufro_vol
+        source: prod_login_ufro_vol
         target: /usr/src/frontend/node_modules
-    networks: 
-      - dev_login_ufro_net
+    networks:
+      - prod_login_ufro_net
 
   mongodb_dev:
     image: mvertes/alpine-mongo
     restart: unless-stopped
-    hostname: 'mongodb'
+    hostname: "mongodb"
     ports:
       - "127.0.0.1:27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-    networks: 
-      - dev_login_ufro_net
-  
-  backend_dev:
+    networks:
+      - prod_login_ufro_net
+
+  backend_prod:
     build:
       context: Backend
-      dockerfile: dev.dockerfile
+      dockerfile: prod.dockerfile
     restart: unless-stopped
     working_dir: /usr/src/backend
+    volumes:
+      - type: bind
+        source: ./Backend
+        target: /usr/src/backend
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:35729:35729"
     depends_on:
       - mongodb_dev
-    networks: 
-      - dev_login_ufro_net
-  
+    command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
+    networks:
+      - prod_login_ufro_net
+
   mariadb:
     image: docker.io/bitnami/mariadb:10.3-debian-10
     environment:
@@ -50,12 +55,12 @@ services:
       - MARIADB_USER=bn_moodle
       - MARIADB_DATABASE=bitnami_moodle
     volumes:
-      - 'mariadb_data:/bitnami/mariadb'
-  
+      - "mariadb_data:/bitnami/mariadb"
+
   moodle:
     image: docker.io/bitnami/moodle:3-debian-10
     ports:
-      - '127.0.0.1:8081:8080'
+      - "127.0.0.1:8081:8080"
     environment:
       - MOODLE_DATABASE_HOST=mariadb
       - MOODLE_DATABASE_PORT_NUMBER=3306
@@ -63,15 +68,15 @@ services:
       - MOODLE_DATABASE_NAME=bitnami_moodle
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - 'moodle_data:/bitnami/moodle'
-      - 'moodledata_data:/bitnami/moodledata'
+      - "moodle_data:/bitnami/moodle"
+      - "moodledata_data:/bitnami/moodledata"
     depends_on:
       - mariadb
 
-networks: 
-  dev_login_ufro_net:
+networks:
+  prod_login_ufro_net:
 volumes:
-  dev_login_ufro_vol:
+  prod_login_ufro_vol:
   mariadb_data:
     driver: local
   moodle_data:
