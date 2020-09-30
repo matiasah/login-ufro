@@ -32,7 +32,7 @@ services:
   backend_prod:
     build:
       context: Backend
-      dockerfile: prod.dockerfile
+      dockerfile: dev.dockerfile
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
