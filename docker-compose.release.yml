@@ -1,7 +1,7 @@
 version: "3.2"
 
 services:
-  frontend_dev:
+  frontend_prod:
     build:
       context: ./frontend
       dockerfile: dev.dockerfile
@@ -12,10 +12,10 @@ services:
         source: ./frontend
         target: /usr/src/frontend
       - type: volume
-        source: dev_login_ufro_vol
+        source: prod_login_ufro_vol
         target: /usr/src/frontend/node_modules
     networks:
-      - dev_login_ufro_net
+      - prod_login_ufro_net
 
   mongodb_dev:
     image: mvertes/alpine-mongo
@@ -27,9 +27,9 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
     networks:
-      - dev_login_ufro_net
+      - prod_login_ufro_net
 
-  backend_dev:
+  backend_prod:
     build:
       context: Backend
       dockerfile: prod.dockerfile
@@ -44,7 +44,7 @@ services:
       - mongodb_dev
     command: /bin/sh -c "mvn spring-boot:run -Dspring-boot.run.profiles=dev && exit 1"
     networks:
-      - dev_login_ufro_net
+      - prod_login_ufro_net
 
   mariadb:
     image: docker.io/bitnami/mariadb:10.3-debian-10
@@ -72,9 +72,9 @@ services:
       - mariadb
 
 networks:
-  dev_login_ufro_net:
+  prod_login_ufro_net:
 volumes:
-  dev_login_ufro_vol:
+  prod_login_ufro_vol:
   mariadb_data:
     driver: local
   moodle_data:
