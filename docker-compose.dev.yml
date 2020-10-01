@@ -3,8 +3,8 @@ version: '3.2'
 services:
   frontend_dev:
     build:
-      context: ./frontend
-      dockerfile: dev.dockerfile
+      context: ./frontend/standalone-login
+      dockerfile: Dockerfile.dev
     ports: 
       - "4200:4200"
     volumes: 
