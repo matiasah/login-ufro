@@ -38,6 +38,24 @@ public class Usuario implements UserDetails {
     @Setter(onMethod_ = @JsonSetter)
     @Getter(onMethod_ = @JsonIgnore)
     private String password;
+
+    private String address;
+
+    private String nickname;
+
+    private String givenName;
+
+    private String locale;
+
+    private String familyName;
+
+    private String middleName;
+
+    private String phone;
+
+    private String picture;
+
+    private String website;
     
     private Set<Authority> authorities = new HashSet<>();
     

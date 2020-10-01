@@ -9,7 +9,7 @@ public class UserInfoController {
     
     @GetMapping("userinfo")
 	public Object user() {
-		return SecurityContextHolder.getContext().getAuthentication();
+		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 }
