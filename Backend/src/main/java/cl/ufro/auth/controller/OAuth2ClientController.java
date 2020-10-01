@@ -52,7 +52,7 @@ public class OAuth2ClientController {
     public OAuth2Client store(@RequestBody OAuth2Client oauth2Client) {
         // If the user sends a password
         if (oauth2Client.getClientSecret() != null) {
-            // Encrypt password
+            // Encrypt secret
             oauth2Client.setClientSecret(this.passwordEncoder.encode(oauth2Client.getClientSecret()));
         }
 
@@ -61,8 +61,17 @@ public class OAuth2ClientController {
 
     @PatchMapping("{id}")
     public OAuth2Client update(@PathVariable("id") OAuth2Client oauth2Client, HttpServletRequest request) throws IOException {
+        // Get last secret
+        String secret = oauth2Client.getClientSecret();
+
         // Update the user with the changed attributes
         this.objectMapper.readerForUpdating(oauth2Client).readValue(request.getReader());
+
+        // If secret changes
+        if (!secret.equals(oauth2Client.getClientSecret())) {
+            // Encrypt secret
+            oauth2Client.setClientSecret(this.passwordEncoder.encode(oauth2Client.getClientSecret()));
+        }
 
         // Store and return
         return this.oauth2ClientRepository.save(oauth2Client);

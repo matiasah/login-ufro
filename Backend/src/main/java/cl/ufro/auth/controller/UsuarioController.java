@@ -61,8 +61,17 @@ public class UsuarioController {
 
     @PatchMapping("{id}")
     public Usuario update(@PathVariable("id") Usuario usuario, HttpServletRequest request) throws IOException {
+        // Get last password
+        String password = usuario.getPassword();
+
         // Update the user with the changed attributes
         this.objectMapper.readerForUpdating(usuario).readValue(request.getReader());
+
+        // If secret changes
+        if (!password.equals(usuario.getPassword())) {
+            // Encrypt password
+            usuario.setClientSecret(this.passwordEncoder.encode(usuario.getClientSecret()));
+        }
 
         // Store and return
         return this.usuarioRepository.save(usuario);
