@@ -28,14 +28,14 @@ export class LoginComponent implements OnInit {
     this.error = null;
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.authenticationService.login(email, password).subscribe(
+    this.authenticationService.loginOauth(email, password).subscribe(
       user => {
         this.success = true;
         console.log(user);
         this.router.navigate(['/admin']);
       }, e => {
         this.loading = false;
-        this.error = e;
+        this.error = 'Usuario o contraseña invalidos';
         console.log('err', e);
       }
     );

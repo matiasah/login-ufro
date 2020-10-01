@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import {delay, tap} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserMocks } from 'src/mocks/user-mocks';
 import { User } from '../models/user';
@@ -35,7 +35,11 @@ export class AuthenticationService {
         form.set('password', password);
 
         // Enviar petición
-        return this.http.post<User>(environment.api + 'oauth/token', form);
+        return this.http.post<User>(environment.api + '/oauth/token', form).pipe(
+          tap(data => {
+            console.log(data);
+          })
+        );
     }
 
     isLoggedIn(): boolean {
