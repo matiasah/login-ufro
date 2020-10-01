@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of, throwError } from 'rxjs';
@@ -33,13 +33,10 @@ export class AuthenticationService {
         form.set('grant_type', 'password');
         form.set('username', email);
         form.set('password', password);
-
         // Enviar petición
-        return this.http.post<User>(environment.api + '/oauth/token', form).pipe(
-          tap(data => {
-            console.log(data);
-          })
-        );
+        return this.http.post<User>(environment.api + '/oauth/token', form, { headers: {
+            Authorization: 'Basic ' + window.btoa('frontend:frontend')
+        }});
     }
 
     isLoggedIn(): boolean {
