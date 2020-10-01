@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post<any>(environment.api + '/usuarios', data);
   }
   updateUser(userId: string, data): Observable<any>  {
-    return this.http.put<any>(environment.api + '/usuarios/' + userId, data);
+    return this.http.patch<any>(environment.api + '/usuarios/' + userId, data);
   }
   deleteUser(userId: string): Observable<any>  {
     return this.http.delete<any>(environment.api + '/usuarios/' + userId);
