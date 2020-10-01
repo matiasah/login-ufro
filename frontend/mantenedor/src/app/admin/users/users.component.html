@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table *ngIf="users != null" class="table table-borderless table-striped">
+      <table *ngIf="users != null; else loadingUsers" class="table table-borderless table-striped">
         <tr>
           <th>Id</th>
           <th>Email</th>
@@ -53,6 +53,13 @@
           </td>
         </tr>
       </table>
+      <ng-template #loadingUsers>
+        <div class="my-5 py-5 text-center">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
