@@ -1,18 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {AdminRoutingModule} from './admin-routing.module';
-import { UsersComponent } from './users/users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminRoutingModule } from './admin-routing.module';
 import { UpsertUserComponent } from './users/upsert-user/upsert-user.component';
-import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [
-  UsersComponent,
-  UpsertUserComponent],
-  imports: [
-    AdminRoutingModule,
-    CommonModule,
-    ReactiveFormsModule,
-  ]
+    declarations: [
+        UsersComponent,
+        UpsertUserComponent],
+    imports: [
+        FormsModule, 
+        AdminRoutingModule,
+        CommonModule,
+        ReactiveFormsModule,
+    ]
 })
 export class AdminModule { }

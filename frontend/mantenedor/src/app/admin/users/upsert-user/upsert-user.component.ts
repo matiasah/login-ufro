@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { UpsertMode } from '../../../upsert-mode.enum';
-import { upsertUserForm } from './upsert-user-form';
 
 @Component({
     selector: 'app-upsert-user',
@@ -15,8 +14,10 @@ import { upsertUserForm } from './upsert-user-form';
 export class UpsertUserComponent implements OnInit, OnDestroy {
     _user: Subscription;
     upsertMode;
-    user: User;
-    form: FormGroup;
+    user: User = {} as User;
+
+    @ViewChild("form")
+    private form: NgForm;
 
     constructor(
         private router: Router,
@@ -26,7 +27,7 @@ export class UpsertUserComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.form = upsertUserForm();
+        //this.form = upsertUserForm();
         this.route.paramMap.subscribe(params => {
             const userId = params.get('userId');
             if (userId == null) {
@@ -35,7 +36,7 @@ export class UpsertUserComponent implements OnInit, OnDestroy {
                 this.upsertMode = UpsertMode.Update;
                 this._user = this.userService.getUser(userId).subscribe(response => {
                     this.user = response;
-                    this.form = upsertUserForm(this.user);
+                    //this.form = upsertUserForm(this.user);
                 });
             }
         });
@@ -43,9 +44,9 @@ export class UpsertUserComponent implements OnInit, OnDestroy {
     submit(): void {
         let request;
         if (this.upsertMode === UpsertMode.Store) {
-            request = this.userService.storeUser(this.form.getRawValue() as User);
+            request = this.userService.storeUser(this.user);
         } else {
-            request = this.userService.updateUser(this.user.id, this.form.getRawValue() as User);
+            request = this.userService.updateUser(this.user.id, this.user);
         }
         request.subscribe(response => {
             this.router.navigate(['/admin/users']);
