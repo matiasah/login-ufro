@@ -14,7 +14,10 @@ import { UpsertMode } from '../../../upsert-mode.enum';
 export class UpsertUserComponent implements OnInit, OnDestroy {
     _user: Subscription;
     upsertMode;
-    user: User = {} as User;
+    user: User = {
+        locale: "es",
+        authorities: ["ROLE_ESTUDIANTE"]
+    } as User;
 
     @ViewChild("form")
     private form: NgForm;
@@ -42,16 +45,19 @@ export class UpsertUserComponent implements OnInit, OnDestroy {
         });
     }
     submit(): void {
-        let request;
-        if (this.upsertMode === UpsertMode.Store) {
-            request = this.userService.storeUser(this.user);
-        } else {
-            request = this.userService.updateUser(this.user.id, this.user);
+        console.log("asdsf");
+        if (this.form.valid) {
+            let request;
+            if (this.upsertMode === UpsertMode.Store) {
+                request = this.userService.storeUser(this.user);
+            } else {
+                request = this.userService.updateUser(this.user.id, this.user);
+            }
+            request.subscribe(response => {
+                this.router.navigate(['/admin']);
+                console.log(response);
+            });
         }
-        request.subscribe(response => {
-            this.router.navigate(['/admin/users']);
-            console.log(response);
-        });
     }
 
     ngOnDestroy(): void {

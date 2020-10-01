@@ -5,7 +5,7 @@
                 <h5 class="mt-2">Usuarios</h5>
             </div>
         </div>
-        <form class="card-body" #form="ngForm">
+        <form class="card-body" #form="ngForm" (submit)="submit()">
             <!-- USERNAME -->
             <div class="form-group">
                 <label for="username">Correo electronico</label>
@@ -62,7 +62,7 @@
                 <input id="website" name="website" [(ngModel)]="user.website" type="text" class="form-control" placeholder="Sitio web">
             </div>
 
-            <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+            <button type="submit" class="btn btn-primary" >Submit</button>
         </form>
     </div>
 </div>
