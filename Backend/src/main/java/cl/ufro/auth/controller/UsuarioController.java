@@ -70,7 +70,7 @@ public class UsuarioController {
         // If secret changes
         if (!password.equals(usuario.getPassword())) {
             // Encrypt password
-            usuario.setClientSecret(this.passwordEncoder.encode(usuario.getPassword()));
+            usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
         }
 
         // Store and return
