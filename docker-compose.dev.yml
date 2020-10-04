@@ -1,6 +1,22 @@
 version: "3.2"
 
 services:
+  frontend_dev:
+    build:
+      context: Frontend
+      dockerfile: dev.dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - type: bind
+        source: ./Frontend
+        target: /usr/src/frontend
+      - type: volume
+        source: dev_login_ufro_vol
+        target: /usr/src/frontend/node_modules
+    networks:
+      - dev_login_ufro_net
+
   mongodb_dev:
     image: mvertes/alpine-mongo
     restart: unless-stopped
@@ -20,7 +36,9 @@ services:
     restart: unless-stopped
     working_dir: /usr/src/backend
     volumes:
-      - ./Backend/:/usr/src/backend
+      - type: bind
+        source: ./Backend
+        target: /usr/src/backend
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:35729:35729"

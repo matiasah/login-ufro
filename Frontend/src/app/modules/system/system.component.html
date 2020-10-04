@@ -1,0 +1,48 @@
+<mat-toolbar class="h-16" color="primary" layout="row">
+    <mat-toolbar-row class="h-full">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h4 class="ml-2">Universidad de La Frontera</h4>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav class="h-full" #sidenav mode="push">
+
+        <mat-card class="mat-elevation-z0" *ngIf="usuario">
+            <mat-card-content>
+                <div class="justify-content-center d-flex">
+                    <h2 class="mat-h2">{{ usuario.givenName }} {{ usuario.familyName }}</h2>
+                </div>
+                <div class="justify-content-center d-flex">
+                    <span>{{ usuario.username }}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-nav-list>
+
+            <h3 mat-subheader>Sistema</h3>
+
+            <a mat-list-item (click)="sidenav.close()">
+                <mat-icon matListIcon>assignment</mat-icon>
+                <span mat-line>Usuarios</span>
+            </a>
+
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Usuario</h3>
+
+            <a mat-list-item id="linkLogout" (click)="onLogout()">
+                <mat-icon matListIcon>close</mat-icon>
+                <span mat-line>Cerrar sesión</span>
+            </a>
+
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
