@@ -1,0 +1,83 @@
+<mat-card class="m-3 mat-elevation-z2">
+
+    <mat-card-header class="flex justify-between">
+        <mat-card-title>
+            Usuarios
+        </mat-card-title>
+
+        <button mat-mini-fab (click)="registrar()" color="accent" matTooltip="Registrar usuario">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <div *ngIf="isLoading | async" class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+
+        <table mat-table class="w-full" [dataSource]="dataSource" matSort>
+
+            <!-- ID -->
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    No.
+                </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                    {{ usuario.id }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Nombre -->
+            <ng-container matColumnDef="givenName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Nombre
+                </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                    {{ usuario.givenName }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Apellido -->
+            <ng-container matColumnDef="familyName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Apellido
+                </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                    {{ usuario.familyName }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Correo -->
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Correo
+                </mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+                    {{ usuario.username }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Opciones -->
+            <ng-container matColumnDef="opciones">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let usuario">
+
+                    <button mat-icon-button matTooltip="Editar usuario" (click)="editar(usuario)">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Eliminar usuario" (click)="eliminar(usuario)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </mat-card-content>
+</mat-card>

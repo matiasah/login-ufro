@@ -1,0 +1,149 @@
+<div class="w-full flex justify-between">
+    <h2 mat-dialog-title>
+        Registrar usuario
+    </h2>
+
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form #form="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
+
+    <mat-dialog-content>
+        <div class="grid gap-4 grid-cols-12 flex items-end">
+
+            <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
+                <mat-label>Correo del usuario</mat-label>
+                <input matInput name="username" type="text" #usernameForm="ngModel" [(ngModel)]="usuario.username" maxlength="255" required cdkFocusInitial />
+                <mat-error *ngIf="usernameForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ usernameForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input matInput name="password" type="password" #passwordForm="ngModel" [(ngModel)]="usuario.password" maxlength="255" required cdkFocusInitial autocomplete="new-password"/>
+                <mat-error *ngIf="passwordForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ passwordForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-4" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput name="givenName" type="text" #givenNameForm="ngModel" [(ngModel)]="usuario.givenName" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="givenNameForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ givenNameForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-4" appearance="fill">
+                <mat-label>Segundo nombre</mat-label>
+                <input matInput name="middleName" type="text" #middleNameForm="ngModel" [(ngModel)]="usuario.middleName" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="middleNameForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ middleNameForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-4" appearance="fill">
+                <mat-label>Apellido</mat-label>
+                <input matInput name="familyName" type="text" #familyNameForm="ngModel" [(ngModel)]="usuario.familyName" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="familyNameForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ familyNameForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
+                <mat-label>Sobrenombre</mat-label>
+                <input matInput name="nickName" type="text" #nickNameForm="ngModel" [(ngModel)]="usuario.nickName" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="nickNameForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ nickNameForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
+                <mat-label>Foto (URL)</mat-label>
+                <input matInput name="picture" type="text" #pictureForm="ngModel" [(ngModel)]="usuario.picture" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="pictureForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ pictureForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-4" appearance="fill">
+                <mat-label>Teléfono</mat-label>
+                <input matInput name="phone" type="text" #phoneForm="ngModel" [(ngModel)]="usuario.phone" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="phoneForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ phoneForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-5" appearance="fill">
+                <mat-label>Dirección</mat-label>
+                <input matInput name="address" type="text" #addressForm="ngModel" [(ngModel)]="usuario.address" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="addressForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ addressForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-span-12 md:col-span-3" appearance="fill">
+                <mat-label>Localización (es-CL)</mat-label>
+                <input matInput name="locale" type="text" #localeForm="ngModel" [(ngModel)]="usuario.locale" maxlength="255" cdkFocusInitial />
+                <mat-error *ngIf="localeForm.hasError('required')">
+                    El campo es obligatorio
+                </mat-error>
+                <mat-hint align="end">
+                    {{ localeForm.control.value?.length || 0 }} / 255
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <div *ngIf="!registrando" class="m-2">
+            <button id="botonEnviar" class="w-full" type="submit" mat-raised-button color="primary">
+                <span class="hidden md:inline">Registrar</span>
+                <mat-icon class="inline md:hidden">done</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="!registrando" class="m-2">
+            <button class="w-full" mat-raised-button mat-dialog-close color="warn">
+                <span class="hidden md:inline">Cancelar</span>
+                <mat-icon class="inline md:hidden">close</mat-icon>
+            </button>
+        </div>
+
+        <div class="w-full h-16" *ngIf="registrando">
+            <mat-progress-spinner class="m-auto" diameter="48" color="primary" mode="indeterminate"></mat-progress-spinner>
+        </div>
+    </mat-dialog-actions>
+
+</form>
