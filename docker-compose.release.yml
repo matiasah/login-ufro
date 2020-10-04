@@ -3,29 +3,13 @@ version: "3.4"
 services:
   frontend_prod:
     build:
-      context: ./frontend/standalone-login
-      dockerfile: Dockerfile.dev
+      context: Frontend
+      dockerfile: dev.dockerfile
     ports:
       - "4200:4200"
     volumes:
       - type: bind
-        source: ./frontend/standalone-login
-        target: /usr/src/frontend
-      - type: volume
-        source: prod_login_ufro_vol
-        target: /usr/src/frontend/node_modules
-    networks:
-      - prod_login_ufro_net
-
-  mantenedor_frontend_prod:
-    build:
-      context: ./frontend/mantenedor
-      dockerfile: Dockerfile.dev
-    ports:
-      - "4201:4200"
-    volumes:
-      - type: bind
-        source: ./frontend/mantenedor
+        source: ./Frontend
         target: /usr/src/frontend
       - type: volume
         source: prod_login_ufro_vol
