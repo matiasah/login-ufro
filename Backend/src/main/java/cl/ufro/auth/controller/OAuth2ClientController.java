@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +43,11 @@ public class OAuth2ClientController {
     @GetMapping
     public Iterable<OAuth2Client> index() {
         return this.oauth2ClientRepository.findAll();
+    }
+
+    @GetMapping("page")
+    public Page<OAuth2Client> page(Pageable pageable) {
+        return this.oauth2ClientRepository.findAll(pageable);
     }
 
     @GetMapping("{id}")

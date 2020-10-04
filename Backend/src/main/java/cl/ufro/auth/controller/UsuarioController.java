@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,11 @@ public class UsuarioController {
     @GetMapping
     public Iterable<Usuario> index() {
         return this.usuarioRepository.findAll();
+    }
+
+    @GetMapping("page")
+    public Page<Usuario> page(Pageable pageable) {
+        return this.usuarioRepository.findAll(pageable);
     }
 
     @GetMapping("{id}")
@@ -80,11 +86,6 @@ public class UsuarioController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") String id) {
         this.usuarioRepository.deleteById(id);
-    }
-
-    @GetMapping("me")
-    public Object me() {
-        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }
