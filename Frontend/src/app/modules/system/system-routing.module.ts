@@ -8,6 +8,11 @@ const routes: Routes = [
         component: SystemComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'usuarios',
+                pathMatch: 'prefix'
+            },
+            {
                 path: 'usuarios',
                 loadChildren: () => import('../usuarios/usuarios.module').then(m => m.UsuariosModule)
             },

@@ -25,9 +25,14 @@
 
             <h3 mat-subheader>Sistema</h3>
 
-            <a mat-list-item (click)="sidenav.close()">
-                <mat-icon matListIcon>assignment</mat-icon>
+            <a mat-list-item (click)="sidenav.close()" routerLink="usuarios">
+                <mat-icon matListIcon>people</mat-icon>
                 <span mat-line>Usuarios</span>
+            </a>
+
+            <a mat-list-item (click)="sidenav.close()" routerLink="oauth2-clients">
+                <mat-icon matListIcon>lock</mat-icon>
+                <span mat-line>Credenciales</span>
             </a>
 
             <mat-divider></mat-divider>

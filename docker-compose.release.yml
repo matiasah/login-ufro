@@ -6,7 +6,7 @@ services:
       context: Frontend
       dockerfile: dev.dockerfile
     ports:
-      - "4200:4200"
+      - "127.0.0.1:4200:4200"
     volumes:
       - type: bind
         source: ./Frontend
