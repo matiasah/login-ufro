@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -17,6 +19,8 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Matías Hermosilla
@@ -39,6 +43,9 @@ public class OAuth2Client implements ClientDetails {
 
     @Indexed
     private String clientId;
+
+    @Setter(onMethod_ = @JsonSetter)
+    @Getter(onMethod_ = @JsonIgnore)
     private String clientSecret;
 
     private Set<String> registeredRedirectUri = new HashSet<>();

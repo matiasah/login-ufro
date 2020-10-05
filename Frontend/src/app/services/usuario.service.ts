@@ -41,8 +41,8 @@ export class UsuarioService {
         return this.http.patch<Usuario>(`${environment.host}/usuarios/${usuario.id}`, this.getDTO(usuario));
     }
 
-    public delete(casoUso: Usuario): Observable<any> {
-        return this.http.delete<Usuario>(`${environment.host}/casos-uso/${casoUso.id}`);
+    public delete(usuario: Usuario): Observable<any> {
+        return this.http.delete<Usuario>(`${environment.host}/casos-uso/${usuario.id}`);
     }
 
 }

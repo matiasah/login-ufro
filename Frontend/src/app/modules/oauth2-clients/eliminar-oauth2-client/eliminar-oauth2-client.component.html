@@ -1,6 +1,6 @@
 <div class="w-full flex justify-between">
     <h2 mat-dialog-title>
-        Eliminar usuario
+        Eliminar credencial
     </h2>
 
     <button mat-icon-button mat-dialog-close>
@@ -15,16 +15,16 @@
                 <b>Nombre:</b>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <b>Correo:</b>
+                <b>Identificador:</b>
             </mat-list-item>
         </mat-list>
 
         <mat-list role="list">
             <mat-list-item role="listitem">
-                {{ usuario.givenName }} {{ usuario.familyName }}
+                {{ oauth2Client.nombre }}
             </mat-list-item>
             <mat-list-item role="listitem">
-                {{ usuario.username }}
+                {{ oauth2Client.clientId }}
             </mat-list-item>
         </mat-list>
     </div>
