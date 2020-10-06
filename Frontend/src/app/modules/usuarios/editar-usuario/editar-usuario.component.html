@@ -26,7 +26,7 @@
 
             <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
                 <mat-label>Contraseña</mat-label>
-                <input matInput name="password" type="password" #passwordForm="ngModel" [(ngModel)]="usuario.password" maxlength="255" required cdkFocusInitial autocomplete="new-password"/>
+                <input matInput name="password" type="password" #passwordForm="ngModel" [(ngModel)]="usuario.password" maxlength="255" cdkFocusInitial autocomplete="new-password"/>
                 <mat-error *ngIf="passwordForm.hasError('required')">
                     El campo es obligatorio
                 </mat-error>

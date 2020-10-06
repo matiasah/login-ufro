@@ -37,7 +37,7 @@
 
             <mat-form-field class="col-span-12 md:col-span-6" appearance="fill">
                 <mat-label>Contraseña</mat-label>
-                <input matInput name="clientSecret" type="password" #clientSecretForm="ngModel" [(ngModel)]="oauth2Client.clientSecret" maxlength="255" required cdkFocusInitial autocomplete="new-password"/>
+                <input matInput name="clientSecret" type="password" #clientSecretForm="ngModel" [(ngModel)]="oauth2Client.clientSecret" maxlength="255" cdkFocusInitial autocomplete="new-password"/>
                 <mat-error *ngIf="clientSecretForm.hasError('required')">
                     El campo es obligatorio
                 </mat-error>
